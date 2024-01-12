@@ -90,7 +90,7 @@ namespace _2048windowsform
 
                     // met le texte au milieu du label
                     lbl[ligne, colonne].TextAlign = ContentAlignment.MiddleCenter;
-                    lbl[ligne, colonne].Font = new Font("Joystix Monospace", 20);
+                    lbl[ligne, colonne].Font = new Font("Joystix Monospace", 15);
                     Controls.Add(lbl[ligne, colonne]); // Ajout visible à la page
                 }
             }
