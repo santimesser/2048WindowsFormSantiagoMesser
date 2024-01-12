@@ -1,4 +1,22 @@
-﻿using System;
+﻿
+/************************************************************************************************************************************************************************************************************************************
+
+         Auteur : Santiago Messer
+         Date 12.01.2024
+         Description = Menu 2048
+
+    
+    (\ /)
+    (o o) Pour qui ça soit plus joli visuellement vous aviez besoin de telecharger la font "Joystix Monospace" qui est dans le dossier du 2048
+    (''')(''')
+
+
+************************************************************************************************************************************************************************************************************************************/
+
+
+
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,6 +34,9 @@ namespace _2048windowsform
 {
     public partial class Form2 : Form
     {
+        /// <summary>
+        /// commencer mon jeu
+        /// </summary>
         public Form2()
         {
             InitializeComponent();
@@ -25,13 +46,18 @@ namespace _2048windowsform
             string cheminSauvegarde = Path.Combine(cheminDossier, sauvegarde);
             int[,] grillePrecedente = Form1.Continuer(cheminSauvegarde);
 
-            if (Form1.Defaite(grillePrecedente) == false)
+            if (Form1.Defaite(grillePrecedente) == false)//voire si je peux continuer et habiliter le bouton continuer
             {
                 buttonContinue.Visible = true;
             }
             else buttonContinue.Visible = false;
         }
 
+        /// <summary>
+        /// button play 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
             buttonContinue.Visible = false;
@@ -40,13 +66,22 @@ namespace _2048windowsform
             buttonPlay.Enabled = false;
         }
 
+        /// <summary>
+        /// button quitter
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button2_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Merci pour jouer");
             Close();
         }
 
-
+        /// <summary>
+        /// lire les meilleurs scores
+        /// </summary>
+        /// <param name="cheminMeilleursScores"></param>
+        /// <param name="labelBestScores"></param>
         public static void LireMeilleursScores(string cheminMeilleursScores, Label labelBestScores)
         {
             List<(int, string)> bestScores = new List<(int, string)>();
@@ -66,6 +101,11 @@ namespace _2048windowsform
             }
         }
 
+        /// <summary>
+        /// panneau pour commencer a joueur
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textNickName_KeyUp(object sender, KeyEventArgs e)
         {
             
@@ -80,6 +120,11 @@ namespace _2048windowsform
             }
         }
 
+        /// <summary>
+        /// commencer une nouvelle partie et change mes valeurs de boutons
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonPlay_Click(object sender, EventArgs e)
         {
             string dossier = "2048";
@@ -98,6 +143,11 @@ namespace _2048windowsform
             buttonScore.Visible = true;
         }
 
+        /// <summary>
+        /// bouton pour sortir de mon panel pour le nom de joueur
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void quitNickname_Click(object sender, EventArgs e)
         {
             buttonContinue.Visible = true;
@@ -105,6 +155,11 @@ namespace _2048windowsform
             panelJoueur.Visible = false;
         }
 
+        /// <summary>
+        /// bouton pour continuer une partie ancienne (si es qu'on peut)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button3_Click(object sender, EventArgs e)
         {
             string dossier = "2048";
@@ -116,12 +171,16 @@ namespace _2048windowsform
             int[,] grillePrecedente = Form1.Continuer(cheminSauvegarde);
             int scorePrecedent = Form1.ContinuerScore(cheminSauvegarde);
             string joueurPrecedent = Form1.ContinuerJoueur(cheminSauvegarde);
-            bool victoire = false; // Remarque : J'ai changé "win" a "victoire" para mantener la coherencia con el francés.
             Form1 startJeu = new Form1(joueurPrecedent, scorePrecedent, grillePrecedente, cheminMeilleursScores);
             startJeu.Show();
 
         }
 
+        /// <summary>
+        /// bouton pour lire les meilleurs scores
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button4_Click(object sender, EventArgs e)
         {
             panelBestScores.Visible = true;
@@ -132,6 +191,11 @@ namespace _2048windowsform
             LireMeilleursScores(cheminMeilleursScores, labelBestScores);
         }
 
+        /// <summary>
+        /// bouton pour sortir de les meilleurs scores
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonQuitScore_Click(object sender, EventArgs e)
         {
             panelBestScores.Visible = false;

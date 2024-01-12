@@ -1,4 +1,21 @@
-﻿using System;
+﻿/************************************************************************************************************************************************************************************************************************************
+
+         Auteur : Santiago Messer
+         Date 12.01.2024
+         Description = fenetre avec le jeu 2048
+
+    
+    (\ /)
+    (o o) Pour qui ça soit plus joli visuellement vous aviez besoin de telecharger la font "Joystix Monospace" qui est dans le dossier du 2048
+    (''')(''')
+
+
+
+************************************************************************************************************************************************************************************************************************************/
+
+
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,6 +26,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.LinkLabel;
+
 
 namespace _2048windowsform
 {
@@ -22,7 +40,15 @@ namespace _2048windowsform
         string pseudo;
         int score;
         int[,] grille;
-        bool victoire = false;
+        bool victoire = false; // Remarque : J'ai changé "win" a "victoire" para mantener la coherencia con el francés.
+
+        /// <summary>
+        /// initializate le jeu avec les donnes du menu
+        /// </summary>
+        /// <param name="pseudo"></param>
+        /// <param name="score"></param>
+        /// <param name="grille"></param>
+        /// <param name="cheminMeilleursScores"></param>
         public Form1(string pseudo, int score, int[,] grille, string cheminMeilleursScores)
         {
             this.score = score;
@@ -32,6 +58,9 @@ namespace _2048windowsform
             commencerJeu();
         }
 
+        /// <summary>
+        /// commence le jeu
+        /// </summary>
         public void commencerJeu()
         {
             InitializeComponent();
@@ -40,6 +69,11 @@ namespace _2048windowsform
             this.KeyDown += new KeyEventHandler(Form1_KeyDown);
             afficher(grille, score); // s'occupe des textes et couleurs
         }
+
+        /// <summary>
+        /// je fais le label et la interface graphique
+        /// </summary>
+        /// <param name="grille"></param>
         public void InitialiserJeu(int[,] grille)
         {
             // Création des labels
@@ -63,6 +97,11 @@ namespace _2048windowsform
             NombreAleatoireInitial(grille);
         }
 
+        /// <summary>
+        /// je fais le couleur de mon 2048
+        /// </summary>
+        /// <param name="valeur"></param>
+        /// <returns></returns>
         static Color ObtenirCouleur(int valeur)
         {
             switch (valeur)
@@ -83,6 +122,11 @@ namespace _2048windowsform
             }
         }
 
+        /// <summary>
+        /// je afiche le label et le score
+        /// </summary>
+        /// <param name="grille"></param>
+        /// <param name="score"></param>
         private void afficher(int[,] grille, int score)
         {
             // réaffiche tout le tableau avec les bonnes couleurs et les bons textes, conformément au tableau jeu
@@ -104,8 +148,11 @@ namespace _2048windowsform
             }
         }
 
-        // Faire apparaître un plot aléatoirement, on vérifiera si c'est la fin du jeu ou non
-
+        
+        /// <summary>
+        /// nombre aleatoire (regarder bug quand le ligne et les colognes sont le memes)
+        /// </summary>
+        /// <param name="grille"></param>
         public static void NombreAleatoireInitial(int[,] grille)
         {
             Random rd = new Random();
@@ -113,7 +160,7 @@ namespace _2048windowsform
             ligne = rd.Next(0, 4);
             colonne = rd.Next(0, 4);
             quatre = rd.Next(0, 9);
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 2; i++) //oublies pas de faire ça (ligne = ligne et cologne = cologne))
             {
                 if (quatre == 1) grille[colonne, ligne] = 4;
                 else grille[colonne, ligne] = 2;
@@ -123,6 +170,12 @@ namespace _2048windowsform
             }
         }
 
+        /// <summary>
+        /// gerer la victoire
+        /// </summary>
+        /// <param name="grille"></param>
+        /// <param name="victoire"></param>
+        /// <returns></returns>
         static bool Victoire(int[,] grille, bool victoire)
         {
             foreach (var tab in grille)
@@ -136,10 +189,15 @@ namespace _2048windowsform
             return victoire;
         }
 
+        /// <summary>
+        /// mouvements, victoire et sauvegarde
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            int[,] grilleMouvement = new int[4, 4];
-            memeTableau(grille, grilleMouvement);
+            int[,] grilleMouvement = new int[4, 4]; //faire teableau vide
+            memeTableau(grille, grilleMouvement); //garde la valeur de mon tableau ancienne dans tableau
             switch (e.KeyCode)
             {
                 case Keys.Up:
@@ -160,28 +218,34 @@ namespace _2048windowsform
 
                 default:
                     break;
-            }
+            } //modifier le tableau
 
-            if (!tableauEgal(grilleMouvement, grille))
+            if (!tableauEgal(grilleMouvement, grille)) //verifier si sont diferents
             {
-                Zero(grille);
+                Zero(grille); //si sont diferents, rajouter une 0
             }
-            Sauvegarder(grille, score, pseudo);
-            afficher(grille, score);
-            victoire = Victoire(grille, victoire);
+            Sauvegarder(grille, score, pseudo);//sauvegarde score et grille
+            afficher(grille, score);//afichage grille
+            victoire = Victoire(grille, victoire); //victoire
 
             if (Defaite(grille) == true)
             {
                 MessageBox.Show("Vous avez perdu !" + " \n Votre score est " + score);
                 this.Close();
             }
-            else if ((e.KeyCode == Keys.Escape || e.KeyCode == Keys.Q))
+            else if ((e.KeyCode == Keys.Escape || e.KeyCode == Keys.Q)) //sortir avec le q ou esc si on veux
             {
                 MessageBox.Show("Merci pour jouer");
                 this.Close();
             }
         }
 
+        /// <summary>
+        /// verifie si 2 tableaux sont egales
+        /// </summary>
+        /// <param name="grilleMouvement"></param>
+        /// <param name="grille"></param>
+        /// <returns></returns>
         public static bool tableauEgal(int[,] grilleMouvement, int[,] grille)
         {
             bool res = true;
@@ -196,6 +260,11 @@ namespace _2048windowsform
             return res;
         }
 
+        /// <summary>
+        /// copie une tableau
+        /// </summary>
+        /// <param name="grille"></param>
+        /// <param name="grilleMouvement"></param>
         public static void memeTableau(int[,] grille, int[,] grilleMouvement)
         {
             for (int i = 0; i < 4; i++)
@@ -207,6 +276,10 @@ namespace _2048windowsform
             }
         }
 
+        /// <summary>
+        /// mouvement gauche
+        /// </summary>
+        /// <param name="grille"></param>
         public static void Gauche(int[,] grille)
         {
             for (int rang = 0; rang < grille.GetLength(0); rang++)
@@ -221,7 +294,10 @@ namespace _2048windowsform
                 }
             }
         }
-
+        /// <summary>
+        /// mouvement droite
+        /// </summary>
+        /// <param name="grille"></param>
         public static void Droite(int[,] grille)
         {
             for (int rang = 0; rang < grille.GetLength(0); rang++)
@@ -236,7 +312,10 @@ namespace _2048windowsform
                 }
             }
         }
-
+        /// <summary>
+        /// mouvement vers le haut
+        /// </summary>
+        /// <param name="grille"></param>
         public static void Haut(int[,] grille)
         {
             for (int j = 0; j < grille.GetLength(0); j++)
@@ -251,7 +330,10 @@ namespace _2048windowsform
                 }
             }
         }
-
+        /// <summary>
+        /// mouvement vers le bas
+        /// </summary>
+        /// <param name="grille"></param>
         public static void Bas(int[,] grille)
         {
             for (int j = 0; j < grille.GetLength(0); j++)
@@ -267,6 +349,10 @@ namespace _2048windowsform
             }
         }
 
+        /// <summary>
+        /// ajouter une 0 si il y a la place dans la grille
+        /// </summary>
+        /// <param name="grille"></param>
         public static void Zero(int[,] grille)
         {
             var zero = new List<(int k, int n)> { };
@@ -295,6 +381,12 @@ namespace _2048windowsform
             }
         }
 
+        /// <summary>
+        /// fusion gauche
+        /// </summary>
+        /// <param name="grille"></param>
+        /// <param name="score"></param>
+        /// <returns></returns>
         public static int AdditionGauche(int[,] grille, int score)
         {
             Gauche(grille);
@@ -314,6 +406,12 @@ namespace _2048windowsform
             return score;
         }
 
+        /// <summary>
+        /// fusion droite
+        /// </summary>
+        /// <param name="grille"></param>
+        /// <param name="score"></param>
+        /// <returns></returns>
         public static int AdditionDroite(int[,] grille, int score)
         {
             Droite(grille);
@@ -333,6 +431,12 @@ namespace _2048windowsform
             return score;
         }
 
+        /// <summary>
+        ///fusion haut 
+        /// </summary>
+        /// <param name="grille"></param>
+        /// <param name="score"></param>
+        /// <returns></returns>
         public static int AdditionHaut(int[,] grille, int score)
         {
             Haut(grille);
@@ -352,6 +456,12 @@ namespace _2048windowsform
             return score;
         }
 
+        /// <summary>
+        /// fusion bas
+        /// </summary>
+        /// <param name="grille"></param>
+        /// <param name="score"></param>
+        /// <returns></returns>
         public static int AdditionBas(int[,] grille, int score)
         {
             Bas(grille);
@@ -371,6 +481,11 @@ namespace _2048windowsform
             return score;
         }
 
+        /// <summary>
+        /// gerer la defaite
+        /// </summary>
+        /// <param name="grille"></param>
+        /// <returns></returns>
         public static bool Defaite(int[,] grille) // vérifie si la grille est complète et si il n'y a plus rien à assembler. 
         {
             bool finJeu = true; // initie la variable pour voir si la grille est pleine
@@ -381,6 +496,15 @@ namespace _2048windowsform
             return finJeu;
         }
 
+
+        /// <summary>
+        /// function necesaire pour ma defaite
+        /// </summary>
+        /// <param name="nbr1"></param>
+        /// <param name="nbr2"></param>
+        /// <param name="nbr3"></param>
+        /// <param name="nbr4"></param>
+        /// <returns></returns>
         public static bool siFin(int nbr1, int nbr2, int nbr3, int nbr4)
         {
             bool res = false;
@@ -388,11 +512,23 @@ namespace _2048windowsform
             return res;
         }
 
+        /// <summary>
+        /// label QUIT
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void label1_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Merci pour jouer");
             this.Close();
         }
+
+        /// <summary>
+        /// sauvegarde sur
+        /// </summary>
+        /// <param name="grille"></param>
+        /// <param name="score"></param>
+        /// <param name="Joueur"></param>
 
         public static void Sauvegarder(int[,] grille, int score, string Joueur)
         {
@@ -417,6 +553,13 @@ namespace _2048windowsform
             }
         }
 
+        /// <summary>
+        /// sauvegarde dans une txt de la grille, le score et le nom du joueur
+        /// </summary>
+        /// <param name="cheminSauvegarde"></param>
+        /// <param name="grille"></param>
+        /// <param name="score"></param>
+        /// <param name="Joueur"></param>
         static void SauvegarderGrille(string cheminSauvegarde, int[,] grille, int score, string Joueur)
         {
             using (StreamWriter writer = new StreamWriter(cheminSauvegarde))
@@ -440,6 +583,12 @@ namespace _2048windowsform
             }
         }
 
+        /// <summary>
+        /// sauvegarade meilleurs scores
+        /// </summary>
+        /// <param name="sauvegardeMeilleursScores"></param>
+        /// <param name="score"></param>
+        /// <param name="Joueur"></param>
         static void SauvegarderMeilleursScores(string sauvegardeMeilleursScores, int score, string Joueur)
         {
             if (!File.Exists(sauvegardeMeilleursScores))
@@ -452,6 +601,12 @@ namespace _2048windowsform
             }
         }
 
+        /// <summary>
+        /// faure un txt vide
+        /// </summary>
+        /// <param name="sauvegardeMeilleursScores"></param>
+        /// <param name="score"></param>
+        /// <param name="Joueur"></param>
         static void FaireTXT(string sauvegardeMeilleursScores, int score, string Joueur)
         {
             List<string> lignes = new List<string>();
@@ -468,6 +623,13 @@ namespace _2048windowsform
             // Écrire les lignes dans le fichier
             File.WriteAllLines(sauvegardeMeilleursScores, lignes);
         }
+
+        /// <summary>
+        /// actualizer le txt avec les scores
+        /// </summary>
+        /// <param name="sauvegardeMeilleursScores"></param>
+        /// <param name="score"></param>
+        /// <param name="Joueur"></param>
         static void ActualiserTXT(string sauvegardeMeilleursScores, int score, string Joueur)
         {
             List<(int, string)> bestScores = new List<(int, string)>();
@@ -497,6 +659,11 @@ namespace _2048windowsform
             File.WriteAllLines(sauvegardeMeilleursScores, newLigne.Take(10)); // Prendre seulement les 10 premières lignes
         }
 
+        /// <summary>
+        /// sauvegarde grille
+        /// </summary>
+        /// <param name="cheminSauvegarde"></param>
+        /// <returns></returns>
         public static int[,] Continuer(string cheminSauvegarde)
         {
             int[,] tableauModifie = new int[4, 4];
@@ -518,6 +685,11 @@ namespace _2048windowsform
             return tableauModifie;
         }
 
+        /// <summary>
+        /// sauvegarde score
+        /// </summary>
+        /// <param name="cheminSauvegarde"></param>
+        /// <returns></returns>
         public static int ContinuerScore(string cheminSauvegarde)
         {
             int score = 0;
@@ -526,6 +698,11 @@ namespace _2048windowsform
             return score;
         }
 
+        /// <summary>
+        /// sauvegarde nom joueur
+        /// </summary>
+        /// <param name="cheminSauvegarde"></param>
+        /// <returns></returns>
         public static string ContinuerJoueur(string cheminSauvegarde)
         {
             string joueur = "";
