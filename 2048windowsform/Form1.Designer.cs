@@ -20,7 +20,7 @@ namespace _2048windowsform
             {
                 components.Dispose();
             }
-
+            Sauvegarder(grille, score, pseudo);
             base.Dispose(disposing);
         }
 

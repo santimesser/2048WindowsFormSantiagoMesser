@@ -46,7 +46,7 @@ namespace _2048windowsform
             string cheminSauvegarde = Path.Combine(cheminDossier, sauvegarde);
             int[,] grillePrecedente = Form1.Continuer(cheminSauvegarde);
 
-            if (Form1.Defaite(grillePrecedente) == false)//voire si je peux continuer et habiliter le bouton continuer
+            if (Form1.Defaite(grillePrecedente) == false) //voire si je peux continuer et habiliter le bouton continuer
             {
                 buttonContinue.Visible = true;
             }
@@ -96,8 +96,8 @@ namespace _2048windowsform
             int longitudTotal = 32;
             foreach (var score in bestScores)
             {
-                    string textoFormateado = $"{score.Item1}".PadRight(longitudTotal, '.') + score.Item2;
-                    labelBestScores.Text = labelBestScores.Text + "\n \n" + textoFormateado;
+                string textoFormateado = $"{score.Item1}".PadRight(longitudTotal, '.') + score.Item2;
+                labelBestScores.Text = labelBestScores.Text + "\n \n" + textoFormateado;
             }
         }
 
