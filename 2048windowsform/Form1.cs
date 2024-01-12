@@ -231,6 +231,7 @@ namespace _2048windowsform
             if (Defaite(grille) == true)
             {
                 MessageBox.Show("Vous avez perdu !" + " \n Votre score est " + score);
+                SauvegarderMeilleursScores(cheminMeilleursScores, score, pseudo);
                 this.Close();
             }
             else if ((e.KeyCode == Keys.Escape || e.KeyCode == Keys.Q)) //sortir avec le q ou esc si on veux
@@ -589,7 +590,7 @@ namespace _2048windowsform
         /// <param name="sauvegardeMeilleursScores"></param>
         /// <param name="score"></param>
         /// <param name="Joueur"></param>
-        static void SauvegarderMeilleursScores(string sauvegardeMeilleursScores, int score, string Joueur)
+        public static void SauvegarderMeilleursScores(string sauvegardeMeilleursScores, int score, string Joueur)
         {
             if (!File.Exists(sauvegardeMeilleursScores))
             {
@@ -630,7 +631,7 @@ namespace _2048windowsform
         /// <param name="sauvegardeMeilleursScores"></param>
         /// <param name="score"></param>
         /// <param name="Joueur"></param>
-        static void ActualiserTXT(string sauvegardeMeilleursScores, int score, string Joueur)
+        public static void ActualiserTXT(string sauvegardeMeilleursScores, int score, string Joueur)
         {
             List<(int, string)> bestScores = new List<(int, string)>();
             string[] lignes = File.ReadAllLines(sauvegardeMeilleursScores);

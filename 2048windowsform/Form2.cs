@@ -129,9 +129,15 @@ namespace _2048windowsform
         {
             string dossier = "2048";
             string sauvegardeMeilleursScores = "meilleursScores.txt";
+            string sauvegarde = "sauvegarde.txt";
             string cheminDossier = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), dossier);
             string cheminMeilleursScores = Path.Combine(cheminDossier, sauvegardeMeilleursScores);
-            string joueur = textNickName.Text; 
+            string cheminSauvegarde = Path.Combine(cheminDossier, sauvegarde);
+            int[,] grillePrecedente = Form1.Continuer(cheminSauvegarde);
+            int scorePrecedent = Form1.ContinuerScore(cheminSauvegarde);
+            string joueurPrecedent = Form1.ContinuerJoueur(cheminSauvegarde);
+            string joueur = textNickName.Text;
+            Form1.SauvegarderMeilleursScores(cheminMeilleursScores, scorePrecedent, joueurPrecedent);
             int[,] grille = new int[4, 4];  // tableau du jeu
             int score = 0;
             Form1 startJeu = new Form1(joueur, score, grille, cheminMeilleursScores);

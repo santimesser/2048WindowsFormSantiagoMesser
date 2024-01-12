@@ -9,3 +9,14 @@ C:\Users\po37jmm\Desktop\2do trimestre\proyect_2048\winfor\2048windowsform\obj\D
 C:\Users\po37jmm\Desktop\2do trimestre\proyect_2048\winfor\2048windowsform\obj\Debug\2048windowsform.exe
 C:\Users\po37jmm\Desktop\2do trimestre\proyect_2048\winfor\2048windowsform\obj\Debug\2048windowsform.pdb
 C:\Users\po37jmm\Desktop\2do trimestre\proyect_2048\winfor\2048windowsform\obj\Debug\_2048windowsform.Form2.resources
+C:\Users\po37jmm\Desktop\2do trimestre\proyect_2048\dossier vide\2048WindowsFormSantiagoMesser\2048windowsform\bin\Debug\2048windowsform.exe.config
+C:\Users\po37jmm\Desktop\2do trimestre\proyect_2048\dossier vide\2048WindowsFormSantiagoMesser\2048windowsform\bin\Debug\2048windowsform.exe
+C:\Users\po37jmm\Desktop\2do trimestre\proyect_2048\dossier vide\2048WindowsFormSantiagoMesser\2048windowsform\bin\Debug\2048windowsform.pdb
+C:\Users\po37jmm\Desktop\2do trimestre\proyect_2048\dossier vide\2048WindowsFormSantiagoMesser\2048windowsform\obj\Debug\2048windowsform.csproj.AssemblyReference.cache
+C:\Users\po37jmm\Desktop\2do trimestre\proyect_2048\dossier vide\2048WindowsFormSantiagoMesser\2048windowsform\obj\Debug\_2048windowsform.Form1.resources
+C:\Users\po37jmm\Desktop\2do trimestre\proyect_2048\dossier vide\2048WindowsFormSantiagoMesser\2048windowsform\obj\Debug\_2048windowsform.Form2.resources
+C:\Users\po37jmm\Desktop\2do trimestre\proyect_2048\dossier vide\2048WindowsFormSantiagoMesser\2048windowsform\obj\Debug\_2048windowsform.Properties.Resources.resources
+C:\Users\po37jmm\Desktop\2do trimestre\proyect_2048\dossier vide\2048WindowsFormSantiagoMesser\2048windowsform\obj\Debug\2048windowsform.csproj.GenerateResource.cache
+C:\Users\po37jmm\Desktop\2do trimestre\proyect_2048\dossier vide\2048WindowsFormSantiagoMesser\2048windowsform\obj\Debug\2048windowsform.csproj.CoreCompileInputs.cache
+C:\Users\po37jmm\Desktop\2do trimestre\proyect_2048\dossier vide\2048WindowsFormSantiagoMesser\2048windowsform\obj\Debug\2048windowsform.exe
+C:\Users\po37jmm\Desktop\2do trimestre\proyect_2048\dossier vide\2048WindowsFormSantiagoMesser\2048windowsform\obj\Debug\2048windowsform.pdb

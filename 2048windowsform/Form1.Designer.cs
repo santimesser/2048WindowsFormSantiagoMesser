@@ -21,7 +21,6 @@ namespace _2048windowsform
                 components.Dispose();
             }
 
-            SauvegarderMeilleursScores(cheminMeilleursScores, score, pseudo);
             base.Dispose(disposing);
         }
 
